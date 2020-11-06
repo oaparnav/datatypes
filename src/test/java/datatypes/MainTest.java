@@ -19,6 +19,9 @@ import static org.junit.Assert.*;
  * 
  * Then query a value, and it should return the proper value
  * as per the inheritance
+ * 
+ * Each set of configuration is stored in a Map<String, String>
+ * 
  * Eg: 
  * if env = DEV
  *   query("baseUrl") -> xyz
