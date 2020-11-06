@@ -1,0 +1,17 @@
+# Gradle
+.gradle
+
+# IDE
+.vscode
+.idea
+.settings
+.classpath
+.project
+
+# Temp files
+*~
+*.swp
+
+# build folders
+build
+bin
