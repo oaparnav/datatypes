@@ -34,6 +34,38 @@ import static org.junit.Assert.*;
  *   query("timeout") -> 1000
  */
 
+/* 
+ * Problem 2
+ * 
+ * Given a set of config json files (see example files in src/main/resources/config)
+ * then write a script (with main() method) which takes an environment name in
+ * command line param and generates a file to set the environment variables
+ * 
+ * Inheritance order is local -> dev -> prod -> default
+ * 
+ * So if we run on the example config json in src/main/resources/config:
+ * 
+ * java -jar createconfig.jar local
+ * 
+ * will output to the terminal (order of variables does not matter)
+ * 
+ * export AZURE_CLIENT_ID=azureDevId
+ * export AZURE_CLIENT_SECRET=azureDevSecret
+ * export AZURE_BASE_URL=http://azure.microsoft.com
+ * export AZURE_TIMEOUT=1000
+ * export SCAC_TIMEOUT=60000
+ * export SCAC_BASE_URL=http://dev.scac.ford.com
+ * 
+ * Each environment variable name will be in uppercase with filename first and
+ * then the config key in underscore separated format.
+ * 
+ * eg: if the file azure.json is having a key "baseUrl" and value "xyz" then
+ * the generated line is 
+ * 
+ * export AZURE_BASE_URL=xyz
+ * 
+ */
+
 public class MainTest {
     @Test public void test() {
         fail();

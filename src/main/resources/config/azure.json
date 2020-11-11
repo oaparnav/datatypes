@@ -1,0 +1,15 @@
+{
+	"local": {},
+	"dev": {
+		"clientId": "azureDevId",
+		"clientSecret": "azudeDevSecret"
+	},
+	"prod": {
+		"baseUrl": "http://azure.microsoft.com",
+		"clientId": "azureProdId",
+		"clientSecret": "azudeProdSecret"
+	},
+	"default": {
+		"timeout": "1000"
+	}
+}

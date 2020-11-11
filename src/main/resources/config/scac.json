@@ -1,0 +1,14 @@
+{
+	"local": {
+		"timeout": "60000"
+	},
+	"dev": {
+		"baseUrl": "http://dev.scac.ford.com"
+	},
+	"prod": {
+		"baseUrl": "http://www.scac.ford.com"
+	},
+	"default": {
+		"timeout": "30000"
+	}
+}
