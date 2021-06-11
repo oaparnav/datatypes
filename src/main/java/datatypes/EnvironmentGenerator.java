@@ -1,7 +1,6 @@
 package datatypes;
 
 import java.util.Map;
-import java.util.TreeMap;
 
 public class EnvironmentGenerator {
 
@@ -14,12 +13,12 @@ public class EnvironmentGenerator {
 	public String generate(String environment) {
 		StringBuilder envBuilder = new StringBuilder();
 		
-		Map<String, String> processMap = new TreeMap<>();
-		
-		processMap = configProcessor.process(environment);
+		Map<String, String> processMap = configProcessor.process(environment);
 
 		processMap.entrySet().stream().forEach(entry -> {
-			envBuilder.append("export").append(" ").append(entry.getKey().toUpperCase()).append("=")
+			
+			String key = String.join("_", entry.getKey().split("(?=\\p{Upper})"));
+			envBuilder.append("export").append(" ").append(key.toUpperCase()).append("=")
 					.append(entry.getValue()).append("\n");
 		});
 		

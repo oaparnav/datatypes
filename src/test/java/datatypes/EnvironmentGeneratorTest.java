@@ -58,8 +58,8 @@ public class EnvironmentGeneratorTest {
 				 
 	@Test
 	public void shouldReturnMultipleEnvProperties_ForDevEnvironment() {
-		when(configProcessor.process(any())).thenReturn(Map.of("AZURE_clientId", "azureDevId", "SCAC_baseUrl",
-				"http://dev.scac.ford.com", "SCAC_timeout", "30000"));
+		when(configProcessor.process(any())).thenReturn(Map.of("azure_clientId", "azureDevId", "scac_baseUrl",
+				"http://dev.scac.ford.com", "scac_timeout", "30000"));
 
 		List<String> asList = Arrays.asList(environmentGenerator.generate("dev").split("\n"));
 		Set<String> responseProperties = new HashSet<>(asList);
