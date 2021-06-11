@@ -41,17 +41,30 @@ public class EnvironmentGeneratorTest {
 	@Test
 	public void shouldReturnProperties_ForDefaultEnvironment() throws Exception {
 
-		when(configProcessor.process(any())).thenReturn(Map.of("AZURE_timeout","1000"));
+		when(configProcessor.process(any())).thenReturn(Map.of("azure_timeout","1000"));
 		assertEquals(environmentGenerator.generate("default"), "export AZURE_TIMEOUT=1000");
 	}
 	
 	@Test
 	public void shouldReturnMultipeEnvProperties_ForDefaultEnvironment() {
-		when(configProcessor.process(any())).thenReturn(Map.of("AZURE_BASE_URL","http://azure.microsoft.com", "AZURE_timeout","1000"));
+		when(configProcessor.process(any())).thenReturn(Map.of("azure_baseUrl","http://azure.microsoft.com", "azure_timeout","1000"));
 		
 		List<String> asList = Arrays.asList(environmentGenerator.generate("default").split("\n"));
 		Set<String> responseProperties = new HashSet<>(asList);
 		Set<String> expectedProperties = Set.of("export AZURE_BASE_URL=http://azure.microsoft.com", "export AZURE_TIMEOUT=1000");
+		assertThat(responseProperties).isEqualTo(expectedProperties);
+	}
+	
+				 
+	@Test
+	public void shouldReturnMultipleEnvProperties_ForDevEnvironment() {
+		when(configProcessor.process(any())).thenReturn(Map.of("AZURE_clientId", "azureDevId", "SCAC_baseUrl",
+				"http://dev.scac.ford.com", "SCAC_timeout", "30000"));
+
+		List<String> asList = Arrays.asList(environmentGenerator.generate("dev").split("\n"));
+		Set<String> responseProperties = new HashSet<>(asList);
+		Set<String> expectedProperties = Set.of("export AZURE_CLIENT_ID=azureDevId",
+				"export SCAC_BASE_URL=http://dev.scac.ford.com", "export SCAC_TIMEOUT=30000");
 		assertThat(responseProperties).isEqualTo(expectedProperties);
 	}
 }
