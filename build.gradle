@@ -10,6 +10,8 @@ repositories {
 
 dependencies {
     testImplementation 'junit:junit:4.12'
+	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
+	    
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.1.0'
     
 }
