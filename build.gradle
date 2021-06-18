@@ -13,5 +13,6 @@ dependencies {
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
 	    
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.1.0'
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.12.0"
     
 }

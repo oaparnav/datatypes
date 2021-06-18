@@ -1,6 +1,11 @@
 package datatypes;
 
+import java.io.IOException;
 import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class EnvironmentGenerator {
 
@@ -10,7 +15,7 @@ public class EnvironmentGenerator {
 		this.configProcessor = configProcessor;
 	}
 
-	public String generate(String environment) {
+	public String generate(String environment) throws StreamReadException, JsonMappingException, IOException {
 		StringBuilder envBuilder = new StringBuilder();
 		
 		Map<String, String> processMap = configProcessor.process(environment);

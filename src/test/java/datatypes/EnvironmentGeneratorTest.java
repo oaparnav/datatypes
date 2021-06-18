@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +18,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EnvironmentGeneratorTest {
@@ -46,7 +50,7 @@ public class EnvironmentGeneratorTest {
 	}
 	
 	@Test
-	public void shouldReturnMultipeEnvProperties_ForDefaultEnvironment() {
+	public void shouldReturnMultipeEnvProperties_ForDefaultEnvironment() throws JsonParseException, JsonMappingException, IOException {
 		when(configProcessor.process(any())).thenReturn(Map.of("azure_baseUrl","http://azure.microsoft.com", "azure_timeout","1000"));
 		
 		List<String> asList = Arrays.asList(environmentGenerator.generate("default").split("\n"));
@@ -57,7 +61,7 @@ public class EnvironmentGeneratorTest {
 	
 				 
 	@Test
-	public void shouldReturnMultipleEnvProperties_ForDevEnvironment() {
+	public void shouldReturnMultipleEnvProperties_ForDevEnvironment() throws JsonParseException, JsonMappingException, IOException {
 		when(configProcessor.process(any())).thenReturn(Map.of("azure_clientId", "azureDevId", "scac_baseUrl",
 				"http://dev.scac.ford.com", "scac_timeout", "30000"));
 
