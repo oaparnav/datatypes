@@ -20,23 +20,25 @@ public class ConfigReaderTest {
 	
 	@Test
 	public void shouldReturnEmptyMap_WhenFilePathIsEmpty() throws JsonParseException, JsonMappingException, IOException {
-		configReader = new ConfigReader(new File(""));
+		configReader = new ConfigReader(new File(""), new FallbackBuilder());
 		assertThat(configReader.read()).isEmpty();
 	}
 	
 	@Test
 	public void shouldReturnMapByReadingAllConfigFiles_WhenFilePathIsSpecified() throws JsonParseException, JsonMappingException, IOException{
-		configReader = new ConfigReader(new File("src/main/resources/config/azure.json"));
+		configReader = new ConfigReader(new File("src/main/resources/config/azure.json"), new FallbackBuilder());
 		Map<String, Map<String, String>> responseMap = configReader.read();
 		assertNotNull(responseMap);
 	}
 	
 	@Test
 	public void shouldReturnEmptyMap_WhenDirectoryDoesNotHaveAnyFiles() throws Exception {
-		configReader = new ConfigReader(new File("src/main/resources/config/fileThatDoesNotExist.json"));
+		configReader = new ConfigReader(new File("src/main/resources/config/fileThatDoesNotExist.json"), new FallbackBuilder());
 		Map<String, Map<String, String>> responseMap = configReader.read();
 		assertEquals(responseMap, new HashMap<String, Map<String, String>>());
 		
 	}
+
+
 	
 }

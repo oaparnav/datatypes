@@ -14,10 +14,11 @@ public class ConfigReader {
 
 	private File filePath;
 	
+	private FallbackBuilder fallbackBuilder;
 	
-	public ConfigReader(File filePath) {
-		super();
+	public ConfigReader(File filePath, FallbackBuilder fallbackBuilder) {
 		this.filePath = filePath;
+		this.fallbackBuilder = fallbackBuilder;
 	}
 
 
@@ -26,7 +27,7 @@ public class ConfigReader {
 			if(filePath.exists()) {
 				Map<String, Map<String, String>> configReaderMap = objectMapper
 						.readValue(filePath, new TypeReference<Map<String, Map<String, String>>>(){});
-				System.out.println(configReaderMap);
+				this.fallbackBuilder.build(configReaderMap);
 				return configReaderMap;
 			}
 			return new HashMap<String, Map<String, String>>();
