@@ -33,7 +33,7 @@ public class ConfigReaderTest {
 	
 	@Test
 	public void shouldReturnEmptyMap_WhenDirectoryDoesNotHaveAnyFiles() throws Exception {
-		configReader = new ConfigReader(new File("src/main/resources/config/"));
+		configReader = new ConfigReader(new File("src/main/resources/config/fileThatDoesNotExist.json"));
 		Map<String, Map<String, String>> responseMap = configReader.read();
 		assertEquals(responseMap, new HashMap<String, Map<String, String>>());
 		
