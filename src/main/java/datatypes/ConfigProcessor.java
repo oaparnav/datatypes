@@ -20,6 +20,13 @@ public class ConfigProcessor {
 	
 		Map<String, Map<String, String>> environmentProperties = configReader.read();
 		
+		Map<String, String> localConfiguration = environmentProperties.get("local");
+		Map<String, String> devConfiguration = environmentProperties.get("dev");
+		Map<String, String> prodConfiguration = environmentProperties.get("prod");
+		Map<String, String> defaultConfiguration = environmentProperties.get("default");
+		
+		FallbackMap<String, String> configurations = new FallbackMap<>(localConfiguration, devConfiguration);
+		
 		Map<String, String> properties = environmentProperties.get(env);
 		if(properties != null) {
 			return properties;
