@@ -1,7 +1,6 @@
 package datatypes;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -38,9 +37,9 @@ public class ConfigProcessorTest {
 	
 	@Test
 	public void shouldReturnMissingPropertiesFromDefaultForProdEnvironment() throws Exception {
-		when(configReader.read()).thenReturn(Map.of("default", Map.of("azure_timeout", "1000")));
+		when(configReader.read()).thenReturn(Map.of("default", Map.of("azure_timeout", "1000"), "prod", Map.of()));
 		configProcessor = new ConfigProcessor(configReader);
-		assertThat(configProcessor.process("prod")).isEqualTo(Map.of("azure_timeout", "1000"));
+		assertThat(configProcessor.process("prod").toString()).isEqualTo(Map.of("azure_timeout", "1000").toString());
 		
 	}
 }
