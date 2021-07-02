@@ -1,9 +1,13 @@
 package datatypes;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -23,7 +27,16 @@ public class ConfigReaderTest {
 	@Test
 	public void shouldReturnMapByReadingAllConfigFiles_WhenFilePathIsSpecified() throws JsonParseException, JsonMappingException, IOException{
 		configReader = new ConfigReader(new File("src/main/resources/config/azure.json"));
-		configReader.read();
+		Map<String, Map<String, String>> responseMap = configReader.read();
+		assertNotNull(responseMap);
+	}
+	
+	@Test
+	public void shouldReturnEmptyMap_WhenDirectoryDoesNotHaveAnyFiles() throws Exception {
+		configReader = new ConfigReader(new File("src/main/resources/config/"));
+		Map<String, Map<String, String>> responseMap = configReader.read();
+		assertEquals(responseMap, new HashMap<String, Map<String, String>>());
+		
 	}
 	
 }
