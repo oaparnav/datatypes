@@ -27,12 +27,21 @@ public class ConfigReader {
 			if(filePath.exists()) {
 				Map<String, Map<String, String>> configReaderMap = objectMapper
 						.readValue(filePath, new TypeReference<Map<String, Map<String, String>>>(){});
+				configReaderMap = mapFileNameToProperties(configReaderMap, filePath.getName());
 				this.fallbackBuilder.build(configReaderMap);
 				return configReaderMap;
 			}
 			return new HashMap<>();
 			
 	}
+
+
+	private Map<String, Map<String, String>> mapFileNameToProperties(Map<String, Map<String, String>> configReaderMap,
+			String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 }

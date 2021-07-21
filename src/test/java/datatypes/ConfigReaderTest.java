@@ -29,6 +29,7 @@ public class ConfigReaderTest {
 		configReader = new ConfigReader(new File("src/main/resources/config/azure.json"), new FallbackBuilder());
 		Map<String, Map<String, String>> responseMap = configReader.read();
 		assertNotNull(responseMap);
+		assertThat(responseMap.get("default").get("azure_timeout")).isEqualTo("1000");
 	}
 	
 	@Test
@@ -39,6 +40,4 @@ public class ConfigReaderTest {
 		
 	}
 
-
-	
 }
