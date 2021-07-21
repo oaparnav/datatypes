@@ -30,7 +30,7 @@ public class ConfigReader {
 				this.fallbackBuilder.build(configReaderMap);
 				return configReaderMap;
 			}
-			return new HashMap<String, Map<String, String>>();
+			return new HashMap<>();
 			
 	}
 

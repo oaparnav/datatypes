@@ -24,6 +24,8 @@ public class ConfigProcessorTest {
 
 	@Test
 	public void shouldReturnEmptyMap_WhenNoArgument() throws JsonParseException, JsonMappingException, IOException {
+		
+		when(configReader.read()).thenReturn(Map.of());
 		configProcessor = new ConfigProcessor(configReader);
 		assertThat(configProcessor.process("").isEmpty());
 	}
