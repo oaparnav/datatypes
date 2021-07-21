@@ -44,12 +44,31 @@ public class ConfigProcessorTest {
 		assertThat(configProcessor.process("prod").toString()).isEqualTo(Map.of("azure_timeout", "1000").toString());
 		
 	}
+	
 	@Test
-	public void shouldReturnMissingPropertiesFromDefaultForProdEnvironment() throws Exception {
+	public void shouldReturnMissingPropertiesFromDefaultForDevEnvironment() throws Exception {
 		when(configReader.read()).thenReturn(Map.of("default", Map.of("azure_timeout", "1000"), "prod", Map.of("azure_baseurl","xyz","azure_clientId","1234"),"dev", Map.of("azure_clientId","4321")));
 		configProcessor = new ConfigProcessor(configReader);
-		assertThat(configProcessor.process("dev").toString()).isEqualTo(Map.of("azure_timeout", "1000","azure_clientId","4321","azure_baseurl","xyz").toString());
+		
+		assertThat(configProcessor.process("dev")).containsOnly(
+	            Map.entry("azure_timeout", "1000"),
+	            Map.entry("azure_clientId","4321"),
+	            Map.entry("azure_baseurl","xyz")
+	        );
 		
 	}
 	
+	@Test
+	public void shouldReturnMissingPropertiesFromDefaultForLocalEnvironment() throws Exception {
+		when(configReader.read()).thenReturn(Map.of("local", Map.of("azure_basepath", "http://basepath"), "default", Map.of("azure_timeout", "1000"), "prod", Map.of("azure_baseurl","xyz","azure_clientId","1234"),"dev", Map.of("azure_clientId","4321", "azure_clientSecret", "clientscret")));
+		configProcessor = new ConfigProcessor(configReader);
+		 assertThat(configProcessor.process("local")).containsOnly(
+		            Map.entry("azure_timeout", "1000"),
+		            Map.entry("azure_basepath", "http://basepath"),
+		            Map.entry("azure_clientId","4321"),
+		            Map.entry("azure_baseurl","xyz"),
+		            Map.entry("azure_clientSecret", "clientscret")
+		        );
+		
+	}
 }
